@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono');
+
+:root{
+	--bg: 	#000;
+	--txt:	#fafafa;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background: var(--bg);
+	color: var(--txt);
+	font-family: 'Roboto Mono', monospace, 'Open Sans', sans-serif;
+	transition: color .5s;
+	transition: background .5s;
+}
+
+#main_cont{
+	height: 150px;
+	width: 80%;
+	text-align: center;
+	line-height: 70px;
+	font-size: 30px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin:auto;
+}
+
+#clock_area{
+	font-size: 40px;
+}
+
+#icon{
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	top: 0;
+  	left: 50%;
+  	transform: translate(-50%, 20%);
+}
+
+#quote_area{
+	text-align:center;
+	height: 100px;
+	font-size: 20px;
+	position: absolute;
+	bottom: 0;
+  	left: 50%;
+  	transform: translate(-50%, -90%);
+}
+
+#nameTime{
+	width: 800px;
+	text-align: center;
+	font-size: 20px;
+	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
+#inputQuery{
+	background-color: var(--bg);
+	border:none;
+	text-align: center;
+	font-size: 40px;
+	padding: 10px;
+	width: 85%;
+	color: transparent;
+	transition: background .5s;
+}
+
+#link_suggest{
+	margin-top: -30px;
+}
+
+#link_suggest li{
+	font-size: 20px;
+	padding: 10px;
+	display: inline;
+}
+
+#link_suggest a{
+	color: var(--txt);
+	text-decoration: none;
+	/*border: 2px solid var(--txt);
+	padding: px;*/
+	padding: 2px 4px;
+	border-radius: 7px;
+	transition: color .5s;
+}

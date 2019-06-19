@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>[Wired]</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, inital-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="index.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="index.js" defer></script>
+	</head>
+
+	<body onresize="matchLinks()" onunload="">
+		<img id="icon" src="images/icon.png">
+		<div id=main_cont>
+			<div id="nameTime">
+				<h1>Welcome to the [Wired]</title>
+				<span id="clock_area">
+					<!--- displayTime() -->
+				</span>
+			</div>
+			<form method="GET" id="queryForm" onsubmit="fixInput()">
+				<input type="text" autofocus autocomplete="off" id="inputQuery" oninput="matchLinks(this.value)">
+			</form>
+			<div id="link_suggest">
+				<ul>
+				</ul>	
+			</div>
+		</div>
+		<h1 id="quote_area">Generating Quote...</h1>
+	</body>
+</html>
