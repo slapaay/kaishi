@@ -164,10 +164,7 @@ function matchLinks(regex=prevregexp){
 	for (let i in matchlet){	
 		$("#link_suggest ul")
 			.append(`<li><a href='${matchlet[i][1]}'>${matchlet[i][0]}</a></li>`);
-	}	
-
-	$('#link_suggest ul').children().first().children()
-		.first().css('background', 'var(--txt)').css('color', 'var(--bg)');
+	}		
 
 	let prefix = getPrefix(regex);
 	for (let i in search){
@@ -280,21 +277,73 @@ function fixInput(){
 
 
 $(document).ready(function(){
+	let insertMode = false;
+	let selectMode = false;
+	let keyPosition = 0;
+
 	displayClock();
 	displayRandomQuote("quote_area");
 	setInterval(displayClock, 1000);
 
-	let html = document.getElementsByTagName('html')[0];
-	html.style.cssText = `--bg: ${color_bg};--txt: ${color_fg}`;
+	document.getElementsByTagName('html')[0]
+		.style.cssText = `--bg: ${color_bg};--txt: ${color_fg}`;
 
-	$("#nameTime").click(function(){
-		startSuggest(true);
-		$('#inputQuery').focus();
+	$('#inputQuery').blur();
+	
+	$('html').keyup(function(event){
+	    let key = (event.key ? event.key : event.which);
+	    console.log(key)
+	    switch(key){
+			case('i'):
+				startSuggest(true);
+				$('#inputQuery').focus();
+				insertMode = true;
+				break;
+			case('Escape'):
+				if(insertMode){
+					$('#inputQuery').blur();
+					insertMode = false;
+					selectMode = true;
+				}else if(selectMode){
+					selectMode = false;
+					startSuggest(false);
+				}
+				break;
+			case('ArrowLeft'):
+				if (keyPosition > 0){
+					keyPosition--;
+				}
+				break;
+			case('ArrowRight'):
+				if (keyPosition < 4){
+					keyPosition++;
+				}
+				break;
+			case('Enter'):
+				console.log(keyPosition)
+				if(selectMode){
+					window.location.href =
+						$('#link_suggest ul').children().eq(keyPosition)
+							.children().first().attr('href')
+				}
+				break;
+			default:
+				break;
+	    }
 	});
 
-	$('#inputQuery').focus().keyup(function() {
-  		startSuggest($(this).val().length != 0)	;
-	}).keyup();
+	setInterval(function(){
+		if(!insertMode && selectMode){
+			$('#link_suggest ul').children().not(`:eq(${keyPosition})`)
+				.children().each(function(){
+					$(this).first().css('background', 'var(--bg)')
+						.css('color', 'var(--fg)');
+				});
+			$('#link_suggest ul').children().eq(keyPosition).children()
+				.first().css('background', 'var(--txt)')
+				.css('color', 'var(--bg)');
+		}
+	}, 150);
 
 	function startSuggest(change){
 		if (change) {
