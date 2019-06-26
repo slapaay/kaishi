@@ -1,115 +1,25 @@
 // ----- CONFIG -----
-
-let color_bg = "#000";
-let color_fg = "#d2738a";
-let default_logo = "images/icon.png";
-
-// Search engines with their alias in the input
-let search = [
+let quotes = [
 	{
-		url: "https://duckduckgo.com/",
-		query: "q",
-		alias: "d\ ",
-		color_bg: "#561805",
-		color_fg: "#FAFAFA",
-		icon: "images/duckduckgo_logo.png"
-	},
-	{
-		url: "https://google.com/search",
-		query: "q",
-		alias: "g\ ",
-		color_bg: "#0f3312",
-		color_fg: "#FAFAFA",
-		icon: "images/google_logo.png"
-	},	
-	{
-		url: "https://www.youtube.com/results",
-		query: "search_query",
-		alias: "y\ ",
-		color_bg: "#681010",
-		color_fg: "#fafafa",
-		icon: "images/yt_logo.png"
-	},
-	{
-		url: "https://www2.9anime.to/search",
-		query: "keyword",
-		alias: "a\ ",
-		color_bg: "#160c42",
-		color_fg: "#fafafa",
-		icon: "images/9anime_logo.png"
+		quote: "There are no quotes in the config file!", 
+		author: "Dev-san"
 	}
 ];
 
-// ----- LIST OF SITES -----
-let sites = {
-	"Outlook":			"https://outlook.office.com/owa/?realm=eq.edu.au",
-	"OneNote":			"https://www.onenote.com/hrd?wdorigin=ondcauth2&wdorigin=poc",
-	"OneSchool": 		"https://oslp.eq.edu.au/",
-	"Oxford Digital":	"https://oxforddigital.com.au/signin/email.html",
-	"Macmillan":		"https://macmillaneducationeverywhere.com/",
-	"JacPlus":			"https://jacplus.com.au/",
-	"Reddit":			"https://reddit.com/",
-	"Twitter":			"https://twitter.com/",
-	"4chan":			"https://4chan.org/",
-	"Youtube":			"https://youtube.com/",
-	"GitHub":			"https://github.com/slapaay/",
-	"Stack Overflow":	"https://stackoverflow.com/",
-	"9anime":			"https://9anime.to/",
-	"KissAnime":		"https://kissanime.ru/",
-	"AniList":			"https://anilist.co/",
-	"LISTEN.moe":		"https://listen.moe/",
-	"turnitin":			"https://turnitin.com/login_page.asp?lang=en_us",
-	"/g/":				"https://4chan.org/g/catalog",
-	"/wg/":				"https://4chan.org/wg/catalog",
-	"/w/":				"https://4chan.org/w/catalog",
-	"/lambda/":			"https://lainchan.org/%CE%BB/catalog.html",
-	"/sec/":			"https://lainchan.org/sec/catalog.html",
-	"/omega/":			"https://lainchan.org/%CE%A9/index.html"
-};
-
-// ----- QUOTES -----
-const quotes = [
-	{
-		quote: "People only have substance within the meories of other people", 
-		author: "Lain Iwakura"
-	},	
-	{
-		quote: "Any new position from which you view your reality will change your perception of its nature. It's all literally a matter of perspective.",
-		author: "Maya Ibuki"
-	},	
-	{
-		quote: "Your truth can be changed simply by the way you accept it. That’s how fragile the truth for a human is.",
-		author: "Kozo Fuyutsuki"
-	},
-	{
-		quote: "If you fail you'll figure something else out. If you fail at that, at least you aren't dead - or dying any faster than the rest of us.",
-		author: "7429538"
-	},
-	{
-		quote: "...doesn't matter what drives your motivation, be it negative or positive emotions, as long as you do something. Motivation is all we need my friend",
-		author: "7429111"
-	},
-	{
-		quote: "Point is, negative, stigmatized emotions such as contempt, indignation, and anger could be used as a driving-force in positive development, if you allow it. Prove yourself wrong by breaking your own constraints.",
-		author: "7429039"
-	},
-	{
-		quote: "The world doesn't care how weak you are. Man up or die",
-		author: "411062016"
-	},
-	{
-		quote: "But you can be better you silly duck",
-		author: "7222918"
-	},
-	{
-		quote: "You must rebuild. You are not destroyed but merely damaged, gather your parts and data and re-assemble yourself in a greater image.",
-		author: "621328591"
-	},
-	{
-		quote: "If only you knew how different things could be",
-		author: "45166513"
-	},
-];
+// ----- AJAX JSON Config file loading -----
+function getConfig(configFile){
+	return new Promise(async function(resolve, reject){
+		$.ajaxSetup({beforeSend: function(xhr){
+			if (xhr.overrideMimeType){
+	  			xhr.overrideMimeType("application/json");
+			}
+		}});
+	
+		await $.getJSON(configFile, function(data) {
+			resolve(data);
+		});
+	});
+}
 
 // ----- I AM USELESS AT MAKING NAMES -----
 
@@ -253,10 +163,10 @@ function getSearch(query){
 	return query.substring(2,query.length);
 }
 
-function getAttributes(prefix, regex){
+function getAttributes(prefix, query){
 	switch(prefix){
 		case("u\ "):
-			url = createURL(regex);
+			url = createURL(query);
 			return [url, null];
 		default:
 			for (let i in search){
@@ -275,56 +185,70 @@ function fixInput(){
 	}
 }
 
-
-$(document).ready(function(){
+async function init(){
 	let insertMode = false;
 	let selectMode = false;
 	let keyPosition = 0;
+	let config = await getConfig('./config.json');
 
-	displayClock();
+	let color_bg = config.color_bg;
+	let color_fg = config.color_fg;
+	let default_logo = config.default_logo;
+	let search = config.search;
+	let sites = config.sites;
+
+	quotes = config.quotes;
+
 	displayRandomQuote("quote_area");
-	setInterval(displayClock, 1000);
 
 	document.getElementsByTagName('html')[0]
 		.style.cssText = `--bg: ${color_bg};--txt: ${color_fg}`;
 
-	$('#inputQuery').blur();
-	
 	$('html').keyup(function(event){
-	    let key = (event.key ? event.key : event.which);
-	    console.log(key)
+		let search 	= $("#inputQuery").val();
+	    let key 	= (event.key ? event.key : event.which);
+
 	    switch(key){
 			case('i'):
 				startSuggest(true);
 				$('#inputQuery').focus();
 				insertMode = true;
+				keyPosition = 0;
 				break;
 			case('Escape'):
-				if(insertMode){
-					$('#inputQuery').blur();
+				if(insertMode && search==""){
+					$("#inputQuery").blur()
+					selectMode = false;
 					insertMode = false;
-					selectMode = true;
+					startSuggest(false);
+					keyPosition = 0;
 				}else if(selectMode){
 					selectMode = false;
 					startSuggest(false);
+					keyPosition = 0;	
+				}else if(insertMode){
+					$('#inputQuery').blur();
+					insertMode = false;
+					selectMode = true;
 				}
 				break;
 			case('ArrowLeft'):
+			case('h'):
 				if (keyPosition > 0){
 					keyPosition--;
 				}
 				break;
 			case('ArrowRight'):
-				if (keyPosition < 4){
+			case('l'):
+				if (keyPosition < ($('#link_suggest ul').children().length-1)){
 					keyPosition++;
 				}
 				break;
 			case('Enter'):
-				console.log(keyPosition)
 				if(selectMode){
 					window.location.href =
 						$('#link_suggest ul').children().eq(keyPosition)
-							.children().first().attr('href')
+						.children().first().attr('href')
 				}
 				break;
 			default:
@@ -355,7 +279,15 @@ $(document).ready(function(){
     		$('#inputQuery').css('color', 'transparent');
     		$('#link_suggest').fadeOut(150);
   		}
-	}	
+	}
+}
+
+$(document).ready(function(){
+	displayClock();
+	setInterval(displayClock, 1000);	
+	$('#inputQuery').blur();
+
+	init();	
 });
 
 
@@ -368,7 +300,7 @@ function similarity(s1, s2) {
 	  	longer = s2;
 	  	shorter = s1;
 	}
-	var longerLength = longer.length;
+	let longerLength = longer.length;
 	if (longerLength == 0) {
 	  	return 1.0;
 	}
@@ -379,14 +311,14 @@ function editDistance(s1, s2) {
 	s1 = s1.toLowerCase();
 	s2 = s2.toLowerCase();
 
-	var costs = new Array();
-	for (var i = 0; i <= s1.length; i++) {
-	  	var lastValue = i;
-	  	for (var j = 0; j <= s2.length; j++) {
+	let costs = [];
+	for (let i = 0; i <= s1.length; i++) {
+	  	let lastValue = i;
+	  	for (let  j = 0; j <= s2.length; j++) {
 	  	    if (i == 0) costs[j] = j;
 	  	    else {
 	  	      	if (j > 0) {
-	  	      	    var newValue = costs[j - 1];
+	  	      	    let newValue = costs[j - 1];
 	  	      	    if (s1.charAt(i - 1) != s2.charAt(j - 1)){
 	  	      	        newValue = Math.min(Math.min(newValue, lastValue),
 	  	      	        	costs[j]) + 1;
