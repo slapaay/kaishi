@@ -1,6 +1,8 @@
 {
+	"title": "kaishi",
+	"greet": "Welcome to the Internet",
 	"color_bg": "#000",
-	"color_fg": "#d2738a",
+	"color_fg": "#fafafa",
 	"default_logo": "images/icon.png",
 	"search": [
 		{
@@ -26,23 +28,9 @@
 			"color_bg": "#681010",
 			"color_fg": "#fafafa",
 			"icon": "images/yt_logo.png"
-		},
-		{
-			"url": "https://www2.9anime.to/search",
-			"query": "keyword",
-			"alias": "a\u0020",
-			"color_bg": "#160c42",
-			"color_fg": "#fafafa",
-			"icon": "images/9anime_logo.png"
 		}
 	],
 	"sites": {
-		"Outlook":			"https://outlook.office.com/owa/?realm=eq.edu.au",
-		"OneNote":			"https://www.onenote.com/hrd?wdorigin=ondcauth2&wdorigin=poc",
-		"OneSchool": 		"https://oslp.eq.edu.au/",
-		"Oxford Digital":	"https://oxforddigital.com.au/signin/email.html",
-		"Macmillan":		"https://macmillaneducationeverywhere.com/",
-		"JacPlus":			"https://jacplus.com.au/",
 		"Reddit":			"https://reddit.com/",
 		"Twitter":			"https://twitter.com/",
 		"4chan":			"https://4chan.org/",
@@ -53,7 +41,6 @@
 		"KissAnime":		"https://kissanime.ru/",
 		"AniList":			"https://anilist.co/",
 		"LISTEN.moe":		"https://listen.moe/",
-		"turnitin":			"https://turnitin.com/login_page.asp?lang=en_us",
 		"/g/":				"https://4chan.org/g/catalog",
 		"/wg/":				"https://4chan.org/wg/catalog",
 		"/w/":				"https://4chan.org/w/catalog",

@@ -14,14 +14,14 @@ function getConfig(configFile){
 	  			xhr.overrideMimeType("application/json");
 			}
 		}});
-	
+
 		await $.getJSON(configFile, function(data) {
 			resolve(data);
 		});
 	});
 }
 
-// ----- I AM USELESS AT MAKING NAMES -----
+// ----- MATCH LINKS WITH SEARCH QUERY -----
 
 let prevregexp = "";
 let pivotmatch = 0;
@@ -95,24 +95,19 @@ function matchLinks(regex=prevregexp){
 	}
 
 	// What will be executed when input is submitted
-	if(!matches || regex==""){
-		if(isURL(regex)){
-			$('#queryForm').attr('action', createURL(regex));
-			$('#queryForm').children().removeAttr('name');
-		}else{
-			let prefix = getPrefix(regex);
-			let attributes = getAttributes(prefix, regex);
-			$('#queryForm').attr('action', attributes[0]);
-
-			if(!attributes[1]){
-				$('#queryForm').children().removeAttr('name');
-			}
-			$('#queryForm').children().attr('name', attributes[1]);
-		}
-	}else{
-		$('#queryForm').attr('action', matchlet[0][1]);
+	if(isURL(regex)){
+		$('#queryForm').attr('action', createURL(regex));
 		$('#queryForm').children().removeAttr('name');
-	}	
+	}else{
+		let prefix = getPrefix(regex);
+		let attributes = getAttributes(prefix, regex);
+		$('#queryForm').attr('action', attributes[0]);
+
+		if(!attributes[1]){
+			$('#queryForm').children().removeAttr('name');
+		}
+		$('#queryForm').children().attr('name', attributes[1]);
+	}
 }
 
 function displayRandomQuote(quote_id) {
@@ -185,19 +180,25 @@ function fixInput(){
 	}
 }
 
-async function init(){
-	let insertMode = false;
-	let selectMode = false;
-	let keyPosition = 0;
-	let config = await getConfig('./config.json');
+let config;
+let insertMode = false;
+let selectMode = false;
+let keyPosition = 0;
 
-	let color_bg = config.color_bg;
-	let color_fg = config.color_fg;
-	let default_logo = config.default_logo;
-	let search = config.search;
-	let sites = config.sites;
+async function init(){	
+	config = await getConfig('./config.json');
 
+	color_bg = config.color_bg;
+	color_fg = config.color_fg;
+	default_logo = config.default_logo;
+	search = config.search;
+	sites = config.sites;
+	title = config.title;
+	greeting = config.greet;
 	quotes = config.quotes;
+
+	$("#greet").html(greeting);
+	$(document).prop('title', title);
 
 	displayRandomQuote("quote_area");
 
