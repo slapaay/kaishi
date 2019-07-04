@@ -3,7 +3,7 @@
 	"greet": "Welcome to the Internet",
 	"color_bg": "#000",
 	"color_fg": "#fafafa",
-	"default_logo": "images/icon.png",
+	"default_logo": "images/icon_default.png",
 	"search": [
 		{
 			"url": "https://duckduckgo.com/",

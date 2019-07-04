@@ -212,6 +212,7 @@ async function init(){
 
 	$("#greet").html(greeting);
 	$(document).prop('title', title);
+	$("#icon").attr('src', default_logo);
 
 	displayRandomQuote("quote_area");
 
