@@ -118,13 +118,26 @@ function displayRandomQuote(quote_id) {
 
 function displayClock() {
     now = new Date();
-    clock = String(now.getFullYear())
-    	+(now.getMonth()+1 < 10 ? "0"+(now.getMonth()+1) : now.getMonth()+1)
-    	+(now.getDate() < 10 ? "0"+now.getDate() : now.getDate())+" // "
-    	+(now.getHours() < 10 ? "0"+now.getHours() : now.getHours())
-        +(now.getMinutes() < 10 ? "0"+now.getMinutes() : now.getMinutes())
-        +(now.getSeconds() < 10 ? "0"+now.getSeconds() : now.getSeconds());
+    clock = String(now.getUTCFullYear()) + "-"
+    	+(now.getUTCMonth()+1 < 10 ? "0"+(now.getUTCMonth()+1) : now.getUTCMonth()+1) + "-"
+    	+(now.getUTCDate() < 10 ? "0"+now.getUTCDate() : now.getUTCDate())+"T"
+    	+(now.getUTCHours() < 10 ? "0"+now.getUTCHours() : now.getUTCHours()) + ":"
+        +(now.getUTCMinutes() < 10 ? "0"+now.getUTCMinutes() : now.getUTCMinutes()) + ":"
+        +(now.getUTCSeconds() < 10 ? "0"+now.getUTCSeconds() : now.getUTCSeconds())
+    	+ createOffset(now);
     document.getElementById("clock_area").innerHTML = clock;
+}
+
+function pad(value) {
+	    return value < 10 ? '0' + value : value;
+}
+
+function createOffset(date) {
+	    var sign = (date.getTimezoneOffset() > 0) ? "-" : "+";
+	    var offset = Math.abs(date.getTimezoneOffset());
+	    var hours = pad(Math.floor(offset / 60));
+	    var minutes = pad(offset % 60);
+	    return sign + hours + ":" + minutes;
 }
 
 function isURL(url){
