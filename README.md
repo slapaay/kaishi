@@ -1,5 +1,6 @@
 # kaishi
 **Live Demo**: [here](https://slapaay.github.io/kaishi/)
+
 This startpage is inspired by the need to use the internet fast. It makes use of only using the keyboard to arrive to links.
 It uses vim-like keybinds which allows for quick and easy navigation.
 
