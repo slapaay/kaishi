@@ -10,19 +10,41 @@
 	padding: 0;
 }
 
+body, html{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
 body{
-	background: var(--bg);
+	/*background: var(--bg);*/
 	color: var(--txt);
 	font-family: 'Roboto Mono', monospace, 'Open Sans', sans-serif;
 	transition: color .5s;
-	transition: background .5s;
+	/*transition: background .5s;*/
+}
+
+#background_image {
+	/* The image used */
+	background-image: url(images/background);
+	/*background-image: url("images/background");*/
+
+	border: none;
+	filter: brightness(50%);
+
+	/* Full height */
+	height: 100%;
+
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #main_cont{
 	height: 150px;
 	width: 80%;
 	text-align: center;
-	line-height: 70px;
 	font-size: 30px;
 	position: absolute;
 	top: 0;
@@ -33,16 +55,43 @@ body{
 }
 
 #clock_area{
-	font-size: 40px;
+	font-size: 120px;
 }
 
-#icon{
-	width: 200px;
-	height: 200px;
+#link_area{
+	width: 80%;
+	left: 10%;
+	right: 10%;
 	position: absolute;
-	top: 0;
-  	left: 50%;
-  	transform: translate(-50%, 20%);
+	top: 15%;
+}
+
+.linkArea_item {
+	background: rgba(5,5,5,0.5);
+	font-size: 15px;
+	list-style-type: none;
+	width: 300px;
+	/*visibility: hidden;*/
+	margin: 10px 10px;
+	display: inline-block;
+	vertical-align: top;
+	border-radius: 10px;
+}
+
+.linkArea_item h1{
+	background: rgba(5,5,5,0.7);
+	text-align: center;
+	padding: 10px 0;
+	border-radius: 10px 10px 0px 0px;
+}
+
+#link_area a{
+	color: #fafafa;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+	margin: 5px 0;
+	padding: 5px 20px;
 }
 
 #quote_area{
@@ -69,29 +118,10 @@ body{
 	background-color: var(--bg);
 	border:none;
 	text-align: center;
-	font-size: 40px;
+	font-size: 50px;
 	padding: 10px;
 	width: 85%;
 	color: transparent;
 	transition: background .5s;
-}
-
-#link_suggest{
-	margin-top: -30px;
-}
-
-#link_suggest li{
-	font-size: 20px;
-	padding: 10px;
-	display: inline;
-}
-
-#link_suggest a{
-	color: var(--txt);
-	text-decoration: none;
-	/*border: 2px solid var(--txt);
-	padding: px;*/
-	padding: 2px 4px;
-	border-radius: 7px;
-	transition: color .5s;
+	/*visibility: hidden;*/
 }

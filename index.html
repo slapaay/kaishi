@@ -11,22 +11,22 @@
 	</head>
 
 	<body onresize="matchLinks()" onunload="">
-		<img id="icon" src="images/icon_default.png">
+		<div id="background_image">
+		</div>
 		<div id=main_cont>
 			<div id="nameTime">
-				<h1 id="greet">Welcome</h1>
 				<span id="clock_area">
 					<!--- displayTime() -->
-				</span>
-			</div>
+				</span>	
+			</div>	
 			<form method="GET" id="queryForm" onsubmit="fixInput()">
 				<input type="text" autofocus autocomplete="off" id="inputQuery" oninput="matchLinks(this.value)">
-			</form>
-			<div id="link_suggest">
-				<ul>
-				</ul>	
-			</div>
+			</form>	
+		</div>
+		<div id="link_area">
+			<h1>test</h1>
 		</div>
 		<h1 id="quote_area">Generating Quote...</h1>
+		</div>
 	</body>
 </html>
