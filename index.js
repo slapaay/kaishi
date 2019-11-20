@@ -112,6 +112,10 @@ let quotes = [
 	{
 		"quote": "You can lose the match and the game, but if you don’t lose to yourself, it isn’t a loss.",
 		"author": "Aragari Karen"
+	},
+	{
+		"quote": "Your heart will stop beating on the 2020-05-07T23:34Z",
+		"author": "Dez"
 	}
 ];
 
@@ -157,7 +161,8 @@ let sites = {
 		"Syncthing":		"http://amadeus:8384/"
 	},
 	"Other": {
-		"jisho":			"https://jisho.org"
+		"jisho":			"https://jisho.org",
+		"Duolingo":			"https://duolingo.com"
 	}
 };
 
@@ -205,42 +210,12 @@ let search = [
 
 ];
 
-// ----- AJAX JSON Config file loading -----
-/*function getConfig(configFile){
-	return new Promise(async function(resolve, reject){
-		$.ajaxSetup({beforeSend: function(xhr){
-			if (xhr.overrideMimeType){
-	  			xhr.overrideMimeType("application/json");
-			}
-		}});
-
-		await $.getJSON(configFile, function(data) {
-			resolve(data);
-		});
-	});
-}*/
-
-// ----- MATCH LINKS WITH SEARCH QUERY -----
-
 let prevregexp = "";
 
 function matchLinks(regex=prevregexp){
 	let findPrefix 	= false;
 
-	let prefix = getPrefix(regex);
-	for (let i in search){
-		if (search[i].alias == prefix){
-			findPrefix = true;
-			document.getElementsByTagName('html')[0]
-				.style.cssText = `
-					--txt: ${search[i].color_fg}`;
-		}
-	}
-
-	if(!findPrefix){
-		document.getElementsByTagName('html')[0]
-			.style.cssText = `--bg: ${color_bg}; --txt: ${color_fg}`;
-	}
+	let prefix = getPrefix(regex);	
 
 	// What will be executed when input is submitted
 	if(isURL(regex)){
@@ -345,16 +320,17 @@ function fixInput(){
 	}
 }
 
+function isLetter(cha) {
+	return cha.length === 1 && cha.match(/[a-z|A-Z|0-9]/i);
+}
+
 let config;
 let insertMode = false;
 let selectMode = false;
 let keyPosition = 0;
 
 async function init(){	
-	//config = await getConfig('./config.json');
-
 	title = "kaishi";
-	//color_bg = "url(images/background)";
 	color_bg = "rgba(0,0,0,0)";
 	color_fg = "#fafafa";
 
@@ -389,6 +365,7 @@ async function init(){
 				}
 				break;
 			default:
+				if (!isLetter(key)) break;
 				$("#inputQuery").fadeIn(150);
 				$('#quote_area').fadeIn(150);
 				$('#nameTime').fadeOut(150);
