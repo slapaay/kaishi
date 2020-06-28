@@ -10,23 +10,18 @@
 		<script src="index.js" defer></script>
 	</head>
 
-	<body onresize="matchLinks()" onunload="">
-		<div id="background_image">
-		</div>
+	<body>
 		<div id=main_cont>
-			<div id="nameTime">
-				<span id="clock_area">
-					<!--- displayTime() -->
-				</span>	
+			<div id="clock">
+				<span id="clock_time"></span>
+				<span id="clock_date"></span>
 			</div>	
-			<form method="GET" id="queryForm" onsubmit="fixInput()">
-				<input type="text" autofocus autocomplete="off" id="inputQuery" oninput="matchLinks(this.value)">
-			</form>	
+			<div id="link_area"></div>
+			<div id="quote_area">
+				<span id="quote"></span>
+				<span id="author"></span>
+			</div>
 		</div>
-		<div id="link_area">
-			<h1>test</h1>
-		</div>
-		<h1 id="quote_area">Generating Quote...</h1>
-		</div>
+		
 	</body>
 </html>
