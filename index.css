@@ -1,105 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
+@import url("file:///home/lslape/.local/share/kadai/styles.css");
 
-:root{
-	--bg: 	#000;
-	--txt:	#D8DEE9;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-*{
-	margin: 0;
-	padding: 0;
+body,
+html {
+  background-color: black;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-body, html{
-	background-color: black;
-	height: 100%;
-	margin: 0;
-	padding: 0;
+body {
+  background-color: var(--bg);
+
+  color: var(--txt);
+  font-family: "Source Code Pro", monospace, sans-serif;
+
+  /* Full height */
+  height: 100%;
 }
 
-body{
-	background-color: #181b21;
-
-	color: var(--txt);
-	font-family: 'Source Code Pro', monospace, sans-serif;
-
-	/* Full height */
-	height: 100%;
-}
-
-#main_cont{
-	margin-left: auto;
-	margin-right: auto;
-	width: 90%;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+#main_cont {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #clock_time {
-	font-size: 60px;
+  font-size: 30px;
 }
 
-#clock_date {
-	font-size: 30px;
+#message {
+  font-size: 60px;
 }
 
-#clock{
-	text-align: center;
-	width: 350px;
-	margin-left: auto;
-	margin-right: auto;
+#clock {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#link_area{
-	margin: 0 auto;
-	margin-top: 30px;
-	text-align: center;
+#link_area {
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .linkArea_item {
-	font-size: 12px;
-	list-style-type: none;
-	/*background-color: #12151b;*/
-	width: 110px;
-	margin: 5px 20px;
-	display: inline-block;
-	vertical-align: top;
-	text-align: left;
+  font-size: 12px;
+  list-style-type: none;
+  /*background-color: #12151b;*/
+  width: 110px;
+  margin: 5px 10px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
 }
 
-.linkArea_item h1{
-	margin: 5px 5px;
-	font-size: 20px;
-	color: #81A1C1;
+.linkArea_item h1 {
+  margin: 2px 5px;
+  font-size: 20px;
+  color: var(--primary);
 }
 
-#link_area a{
-	color: #fafafa;
-	display: inline-block;
-	vertical-align: middle;
-	text-decoration: none;
-	margin: 5px 5px;
+#link_area a {
+  color: var(--txt);
+  display: inline-block;
+  vertical-align: middle;
+  text-decoration: none;
+  margin: 2px 5px;
 }
 
-#quote_area{
-	margin: 0 auto;
-	margin-top: 30px;
-	text-align: center;
-	width:50%;
-	color: #8e949e;
+#quote_area {
+  margin: 0 auto;
+  margin-top: 30px;
+  text-align: center;
+  width: 50%;
+  color: var(--txt);
+  opacity: 0.5;
 }
 
 #quote {
-	width: 70%;
-	font-size: 15px;
+  width: 70%;
+  font-size: 12px;
 }
 
 #author {
-	font-style: italic;
-	display: block;
-	font-size: 12px;
-	text-align: right;
-	margin-top: 10px;;
+  font-style: italic;
+  display: block;
+  font-size: 10px;
+  text-align: right;
+  margin-top: 10px;
 }
